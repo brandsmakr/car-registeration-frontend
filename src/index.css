@@ -1,13 +1,671 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* --main-color: #EAC54F; */
+  /* --main-color: #fbc02d; */
+  /* --main-color: #ffc400; */
+  --main-color: #ff9900f3;
+  --light-color: #ff9900c1;
+  --dark-color: #ff9900;
+  --focus-color: #ff9d0ab3;
+  --light-color: #ff9e0c33;
+  --icon-color: rgba(255, 158, 12, 0.2);
+  --gray-color: #828282;
+  --error-color: #d3232f;
+  --light-gray-color: #f6f6f7;
+  --mid-gray-color: #e3e3e3;
+  --dashboard-gray-color: rgb(99, 115, 129);
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--scroll-padding, 100);
+}
+
+/* utilitly classes start here */
+
+.settingBadge {
+  background-color: var(--dark-color);
+}
+
+.animatation-spiner {
+  animation: spin 6s linear infinite;
+}
+
+.notificationBadge {
+  background-color: var(--dark-color);
+  color: white;
+}
+
+/* .MuiTableCell-root{
+  max-width: max-content;
+  display: flex;
+} */
+
+/* width */
+.muiTableContainer::-webkit-scrollbar {
+  height: 10px;
+}
+
+/* Track */
+.muiTableContainer::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Handle */
+.muiTableContainer::-webkit-scrollbar-thumb {
+  background: #cdcdce;
+  /* border-radius: 1rem; */
+}
+
+.scroll-none::-webkit-scrollbar {
+  display: none;
+}
+
+/* width */
+.overflowScrollY::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+.overflowScrollY::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Handle */
+.overflowScrollY::-webkit-scrollbar-thumb {
+  background: #cdcdce;
+  border-radius: 2rem;
+}
+
+.errorColor {
+  color: var(--error-color);
+}
+
+.bgColor,
+.hoverBgColor:hover {
+  background-color: var(--main-color) !important;
+}
+
+.decorationColor {
+  text-decoration-color: var(--dark-color);
+}
+
+.bgIconColor {
+  background-color: var(--icon-color) !important;
+}
+
+.iconColor {
+  color: var(--icon-color);
+}
+
+.focusBgColor:focus,
+.activeBgColor:active {
+  background-color: var(--focus-color);
+}
+
+.textColor,
+.hoverTextColor:hover {
+  color: var(--main-color);
+}
+
+.textGray,
+.hoverTextGray:hover {
+  color: var(--gray-color);
+}
+
+.bgGray,
+.hoverBgGray:hover {
+  background: var(--gray-color);
+}
+
+.focusTextColor:focus,
+.activeTextColor:active {
+  color: var(--focus-color);
+}
+
+.borderColor,
+.hoverBorderColor:hover {
+  border-color: var(--main-color);
+}
+
+.focusBorderColor:focus,
+.activeBorderColor:active {
+  border-color: var(--focus-color);
+}
+
+/* utilitly classes ends here */
+
+/* tailwind special classes starts here */
+
+.InputFieldSetting {
+  @apply flex flex-col w-full space-y-1;
+}
+
+.search-btn {
+  @apply px-5 py-2 rounded-[20px] outline outline-1 outline-[var(--main-color)] bg-[var(--light-color)] shadow-md;
+}
+
+.transSelector {
+  @apply block md:w-full bg-white border text-sm font-semibold border-gray-400 hover:border-gray-500 px-2 py-2 pr-0 rounded shadow leading-tight focus:outline-none;
+}
+
+.filterStyled {
+  @apply flex  text-gray-600 font-medium hover:text-gray-800 overflow-hidden cursor-pointer;
+}
+
+.filterStyled.active {
+  @apply text-gray-900 border-b-2 border-black;
+}
+
+.auction-card {
+  @apply h-full border-gray-200 border-opacity-60 rounded-sm overflow-hidden;
+}
+
+.auction-card .auction-top-img {
+  @apply lg:h-48 md:h-36 w-full object-cover object-center;
+}
+
+.auction-card .auction-item-title {
+  @apply text-base font-bold text-gray-900 hover:underline leading-relaxed;
+}
+
+.auction-card .auction-item-description {
+  @apply leading-relaxed  text-sm text-gray-900;
+}
+
+.auction-card .auction-item-description .desButn {
+  @apply bg-[var(--main-color)]  text-white text-xs font-bold py-0.5 px-2 mr-2 rounded-lg;
+}
+
+.auction-card .auction-card-address {
+  @apply leading-relaxed  text-sm font-normal text-gray-500;
+}
+
+.list-card {
+  @apply flex w-full h-full lg:h-48 md:h-36 relative py-0.5;
+}
+
+.list-card .first-half-div {
+  @apply h-full w-1/2 p-1 md:p-1;
+}
+
+.list-card .second-half-div {
+  @apply flex-col;
+}
+
+.list-card .second-half-div .second-half-item {
+  @apply h-1/2 p-1 md:p-1;
+}
+
+.list-card .list-img {
+  @apply block h-full w-full object-cover object-center;
+}
+
+.list-card-heading {
+  @apply hover:underline text-gray-900 text-xl font-bold;
+}
+
+.list-card-description {
+  @apply text-sm font-normal text-gray-900;
+}
+
+.list-card-description .listTypeBtn {
+  @apply bg-[var(--main-color)]  text-white text-xs font-bold py-0.5 px-2 mr-2 rounded-lg;
+}
+
+.list-card .listAddress {
+  @apply leading-relaxed mb-2 text-lg font-normal text-gray-500;
+}
+
+.list-card .listKind {
+  @apply bg-[var(--main-color)] text-white absolute bottom-3 left-3 rounded-lg px-2 py-1;
+}
+
+.recent-sale-cards {
+  @apply grid lg:grid-cols-4 grid-cols-2 p-4 gap-4;
+}
+
+.recent-sale-cards .SoldCardItem {
+  @apply h-full border-gray-200 border-opacity-60 rounded-sm overflow-hidden;
+}
+
+.SoldCardItem .cardImg {
+  @apply lg:h-44 md:h-36 w-full object-cover object-center;
+}
+
+.SoldCardItem .soldCarLabel {
+  @apply bg-[var(--main-color)] text-white rounded-lg px-1 mt-2;
+}
+
+.soldCarLabel .soldCarLabelItem {
+  @apply text-white items-center leading-none text-sm py-1.5 px-1.5 border-gray-200;
+}
+
+.SoldCardItem .soldedTitle {
+  @apply mb-3 text-base leading-tight	 font-bold text-gray-900;
+}
+
+.CarStep {
+  @apply bg-[var(--light-gray-color)] mb-8 py-6 my-3 w-full rounded-md pl-3 lg:px-6 px-2;
+}
+
+.leftStepStyle {
+  @apply w-2 mt-2 mb-1 bg-[var(--main-color)];
+}
+
+.whatsCarBidIconStyle {
+  @apply min-w-fit min-h-fit w-14 h-14 p-1 mr-2 bg-[var(--light-color)] rounded text-black shadow-md;
+}
+
+.whatsCardBidItem {
+  @apply grid grid-cols-1 lg:grid-cols-2 w-full lg:gap-x-5 gap-y-14;
+}
+
+.whatsCardBidItem .item {
+  @apply flex flex-col items-start gap-y-5;
+}
+
+.whatsCardBidItem .item .itemContent {
+  @apply flex flex-row lg:flex-col  gap-y-5;
+}
+
+.whatsCardBidItem .item .itemContent .content {
+  @apply flex flex-col  gap-y-5;
+}
+
+.whatsCardBidItem .item .itemContent .content .heading {
+  @apply flex text-2xl text-gray-900 font-bold hover:text-gray-700;
+}
+
+.whatsCardBidItem .item .itemContent .content .description {
+  @apply text-xl;
+}
+
+.savedSeachesList {
+  @apply border-gray-200 border-opacity-60 rounded-sm overflow-hidden;
+}
+
+.notificaton-modal,
+.notificaton-modal-2 {
+  @apply absolute  border w-[200px] sm:w-[300px] lg:w-[400px] right-10 shadow-md rounded bg-white transition-all;
+}
+
+.notificaton-modal {
+  @apply top-[72px];
+}
+
+.notificaton-modal-2 {
+  @apply top-[50px];
+}
+
+.notify-header {
+  @apply flex justify-between items-center px-3 py-3 gap-0.5 sm:gap-2 font-bold border-b-2;
+}
+
+.notify-header .notify-title {
+  @apply flex  gap-2;
+}
+
+.notify-header .notify-setting {
+  @apply cursor-pointer;
+}
+
+.notify-body {
+  @apply overflow-y-auto max-h-[300px];
+}
+
+.notify-body .main-content {
+  @apply p-2;
+}
+
+.notify-body .main-content .content-item {
+  @apply flex justify-start align-top items-start gap-2 px-1 py-1 opacity-60 border-b-2;
+}
+
+.notify-body .main-content .content-item:last-child {
+  @apply border-none;
+}
+
+.notify-body .main-content .content-item.active {
+  @apply opacity-100;
+}
+
+.notify-body .main-content .content-item .badge {
+  @apply bg-[var(--gray-color)] text-white rounded-full px-1;
+}
+
+.notify-body .main-content .content-item.active .badge {
+  @apply bg-[var(--main-color)];
+}
+
+.notify-body .main-content .content-item .item-desc {
+  @apply flex flex-col justify-center align-top items-start leading-tight;
+}
+
+.notify-body .main-content .content-item .item-desc .item-title {
+}
+
+.notify-body .main-content .content-item .item-desc .item-ago {
+  @apply p-0 text-sm opacity-70;
+}
+
+.myListing:last-child {
+  @apply border-none;
+}
+
+.toggleBtn {
+  @apply appearance-none transition-colors cursor-pointer w-20 h-9 rounded-md bg-[var(--mid-gray-color)] shadow;
+}
+
+.onOffRing {
+  @apply w-6 h-6 absolute transform transition-transform bg-white rounded-md  shadow;
+}
+
+.onOffText {
+  @apply absolute font-medium text-xs uppercase tracking-wider;
+  text-shadow: 0.5px 0.5px var(--mid-gray-color);
+}
+
+.requireField{
+ @apply text-[var(--error-color)]	text-sm;
+}
+
+.applicationProcess{
+  @apply flex items-center px-3 py-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 min-w-max ;
+}
+
+.fb-btn{
+  @apply bg-transparent drop-shadow mytextShadow;
+}
+
+.applicationProcess.active{
+  background-color: var(--mid-gray-color);
+}
+
+.jsCenter > .MuiTabs-flexContainer, .jsCenter > .css-heg063-MuiTabs-flexContainer, .css-heg063-MuiTabs-flexContainer{
+  justify-content: center !important;
+}
+
+/* .transSelector {
+  @apply  block md:w-full bg-white border text-sm font-semibold border-gray-400 hover:border-gray-500 px-2 py-2 pr-0 rounded shadow leading-tight focus:outline-none focus:shadow-outline;
+} */
+
+/* tailwind special classes ends here */
+
+.menu-active {
+  font-weight: bold;
+}
+
+/* .showcase-images div:nth-child(1) > img {
+  border-top-left-radius: 0.25rem;
+} */
+.showcase-images div:nth-child(2) > img {
+  border-top-right-radius: 0.25rem;
+}
+
+.showcase-images .showcase-item .showMore-text,
+.list-showcase-images .showcase-item .showMore-text {
+  display: none;
+}
+
+.showcase-images .showcase-item:last-child .showMore-text,
+.list-showcase-images .showcase-item:last-child .showMore-text {
+  display: block;
+}
+
+.list-showcase-images div:nth-child(1) > img {
+  border-top-left-radius: 0.25rem;
+}
+
+.list-showcase-images div:nth-child(4) > img {
+  border-top-right-radius: 0.25rem;
+}
+
+.list-showcase-images div:nth-child(5) > img {
+  border-bottom-left-radius: 0.25rem;
+}
+
+/* .showcase-images div:last-child .d-las{
+  display: none;
+}
+.showcase-images div:last-child .d-las{
+  display: block;
+} */
+
+/* .showcase-images div:nth-child(4) > img {
+  border-bottom-left-radius: 0.25rem;
+} */
+
+.showcase-images div:last-child > img {
+  border-bottom-right-radius: 0.25rem;
+}
+
+.showcase-images div:last-child {
+  /* position: absolute; */
+}
+
+.showCaseViewTabs {
+  background: transparent  !important;
+}
+
+.tabsIncatorColor > button {
+  color: white;
+}
+
+.css-8koa9a-JoyTabs-root {
+  overflow: hidden;
+}
+
+.css-1ff3uza-JoyTabList-root{
+  min-width: fit-content;
+}
+
+.mytextShadow{
+  text-shadow: inset 2px 2px 3px rgba(255,255,255,0.5);
+  -webkit-background-clip: text;
+     -moz-background-clip: text;
+          background-clip: text;
+}
+
+
+.tabsIncatorColor > button.Joy-selected,
+.tabsIncatorColor >button.css-4cae1q-JoyTab-root.Mui-selected,
+.tabsIncatorColor >button.css-4cae1q-JoyTab-root:hover,
+.css-1yhnohm-JoyTab-root.Mui-selected,
+.tabsIncatorColor > button:hover {
+  background-color: transparent !important;
+  font-weight: bolder;
+  box-shadow: none;
+  border: none;
+  color: white;
+}
+
+/* 
+    swipper styling
+*/
+
+@media screen and (max-width: 640px) {
+  .showcase-images div:nth-child(6) > img {
+    border-top-right-radius: 0.25rem;
+  }
+  .sxleft-0 {
+    left: 0;
+  }
+}
+
+@media screen and (min-width: 1536px) {
+  .two-xl-larger-text {
+    font-size: 1.15rem !important;
+  }
+  .two-xl-large-text {
+    font-size: 1rem !important;
+  }
+}
+
+input:checked {
+  background-color: var(--main-color); /* bg-green-500 */
+}
+
+input:checked ~ span:last-child {
+  --tw-translate-x: 2rem; /* translate-x-7 */
+}
+
+/* pre loader styling */
+.preLoaderStyling,
+.preLoaderStyling2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 10px;
+}
+
+.preLoaderStyling2 {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0 0 0 / 0.45);
+  z-index: 99999999999999;
+  -webkit-tap-highlight-color: transparent;
+  backdrop-filter: blur(4px);
+  position: fixed;
+  inset: 0px;
+  top: 0;
+  left: 0;
+}
+
+.theme-text-color {
+  color: var(--main-color) !important;
+}
+
+/* 
+Questions Styling
+*/
+.swiper-slide.qSwiperItem {
+  width: 350px !important;
+  height: 250px !important;
+  margin: 20px auto;
+  /* border: 1px solid #e5e7eb; */
+  cursor: grab;
+  overflow: hidden;
+}
+
+.top-shadow-swiper {
+  /* box-shadow: 0 -5px 5px -5px #e5e7eb */
+  box-shadow: 0 -5px 5px -35px rgba(229, 231, 235, 0.9);
+}
+
+.swipper-bottom-bg {
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+@media only screen and (max-width: 640px) {
+  .swiper-slide.qSwiperItem {
+    width: 100% !important;
+    height: 300px !important;
+  }
+}
+
+.get-Quote-tBg {
+  /* background-color: rgba(255, 153, 0, 0.2); */
+  background: linear-gradient(rgba(255, 153, 0, 0.2), rgba(255, 153, 0, 0.3));
+}
+
+.butn-grad-Bg {
+  /* background-color: rgba(255, 153, 0, 0.2); */
+  background: linear-gradient(rgba(255, 153, 0, 0.05), rgba(255, 153, 0, 0.1));
+}
+
+/* 
+  comment styling
+*/
+textarea.textAreaResizeStyling {
+  resize: none;
+  overflow: hidden;
+  min-height: 20px;
+  max-height: 100px;
+}
+.iconbutnStyleOnDisable:disabled {
+  opacity: 0.7;
+  /* background-color: rgba(0,0,0,0.7); */
+  background-color: #eeeef0;
+}
+
+img{
+  max-width: none;
+}
+.quill ul li{
+  list-style-type: disc;
+}
+
+@media only screen and (max-width: 1280px) {
+  .list-showcase-images div:nth-child(3) > img {
+    border-top-right-radius: 0.25rem;
+  }
+
+  .list-showcase-images div:nth-child(4) > img {
+    border-bottom-left-radius: 0.25rem;
+    border-top-right-radius: 0;
+  }
+
+  .list-showcase-images div:nth-child(5) > img {
+    border-bottom-left-radius: 0;
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  /* .list-showcase-images  {
+    border: 1px solid red;
+  } */
+
+  .list-showcase-images div:nth-child(1) > img {
+    border-bottom-left-radius: 0.25rem;
+  }
+
+  .list-showcase-images div:last-child > img {
+    border-top-right-radius: 0.25rem;
+    /* border: 3px solid blue; */
+  }
+
+  .list-showcase-images div:nth-child(3) > img {
+    border-top-right-radius: 0.25rem;
+  }
+}
+
+@media only screen and (max-width: 640px) {
+  .list-showcase-images div:first-child > img {
+    border-top-left-radius: 0.25rem;
+    border-top-right-radius: 0.25rem;
+    border-bottom-left-radius: 0;
+  }
+
+  .list-showcase-images div:last-child,
+  .list-showcase-images div:last-child > img {
+    border-bottom-left-radius: 0.25rem;
+    border-bottom-right-radius: 0.25rem;
+  }
+}
+
+@media only screen and (max-width: 768px){
+  .css-8koa9a-JoyTabs-root {
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+}
+
+@media only screen and (max-width: 375px){
+  .sm-text-small{
+    @apply text-sm;
+  }
+  .sm-text-lg{
+    @apply text-lg;
+  }
+  .sm-w-full{
+    @apply w-full;
+  }
 }
